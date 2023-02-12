@@ -1,1 +1,54 @@
 
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using NUnit.Framework;
+using TriangleSolver;
+
+namespace TriangleTests
+{
+    [TestFixture]
+    public class TriangleTests
+    {
+        [TestCase(5, 5, 5)]
+        public void ValidEquilateralTriangleTest(double a, double b, double c)
+        {
+            Assert.IsTrue(Triangle.IsValid(a, b, c) && Triangle.GetType(a, b, c) == TriangleType.Equilateral);
+        }
+
+        [TestCase(5, 5, 4)]
+        [TestCase(5, 4, 5)]
+        [TestCase(4, 5, 5)]
+        public void ValidIsoscelesTriangleTest(double a, double b, double c)
+        {
+            Assert.IsTrue(Triangle.IsValid(a, b, c) && Triangle.GetType(a, b, c) == TriangleType.Isosceles);
+        }
+
+        [TestCase(3, 4, 5)]
+        [TestCase(5, 12, 13)]
+        [TestCase(8, 15, 17)]
+        [TestCase(7, 24, 25)]
+        [TestCase(20, 21, 29)]
+        public void ValidScaleneTriangleTest(double a, double b, double c)
+        {
+            Assert.IsTrue(Triangle.IsValid(a, b, c) && Triangle.GetType(a, b, c) == TriangleType.Scalene);
+        }
+
+        [TestCase(0, 4, 5)]
+        [TestCase(3, 0, 5)]
+        [TestCase(3, 4, 0)]
+        public void ZeroLengthTriangleTest(double a, double b, double c)
+        {
+            Assert.IsFalse(Triangle.IsValid(a, b, c));
+        }
+
+        [TestCase(5, 4, 2)]
+        [TestCase(3, 8, 5)]
+        [TestCase(7, 12, 2)]
+        public void InvalidTriangleTest(double a, double b, double c)
+        {
+            Assert.IsFalse(Triangle.IsValid(a, b, c));
+        }
+    }
+}
+
